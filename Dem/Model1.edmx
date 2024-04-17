@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище zayavkiModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" />
+          <Property Name="dateSmen" Type="date" />
+          <Property Name="zayavka" Type="int" />
+        </EntityType>
+        <EntityType Name="master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="typeEquipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Zayavki">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" />
+          <Property Name="client" Type="int" />
+          <Property Name="typeEquip" Type="int" />
+          <Property Name="dateOform" Type="date" />
+          <Property Name="dateVip" Type="date" />
+          <Property Name="model" Type="nvarchar" MaxLength="100" />
+          <Property Name="master" Type="int" />
+        </EntityType>
+        <Association Name="FK_history_Zayavki">
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="0..1" />
+          <End Role="history" Type="Self.history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zayavki">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="zayavka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_client">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_master">
+          <End Role="master" Type="Self.master" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="master" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_status">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_status1">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_typeEquipment">
+          <End Role="typeEquipment" Type="Self.typeEquipment" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeEquipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="typeEquip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище zayavkiModelContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="history" EntityType="Self.history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="master" EntityType="Self.master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typeEquipment" EntityType="Self.typeEquipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zayavki" EntityType="Self.Zayavki" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_history_Zayavki" Association="Self.FK_history_Zayavki">
+            <End Role="Zayavki" EntitySet="Zayavki" />
+            <End Role="history" EntitySet="history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_client" Association="Self.FK_Zayavki_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_master" Association="Self.FK_Zayavki_master">
+            <End Role="master" EntitySet="master" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_status" Association="Self.FK_Zayavki_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_status1" Association="Self.FK_Zayavki_status1">
+            <End Role="status" EntitySet="status" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_typeEquipment" Association="Self.FK_Zayavki_typeEquipment">
+            <End Role="typeEquipment" EntitySet="typeEquipment" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="zayavkiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_client" FromRole="client" ToRole="Zayavki" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="dateSmen" Type="DateTime" Precision="0" />
+          <Property Name="zayavka" Type="Int32" />
+          <NavigationProperty Name="Zayavki" Relationship="Self.FK_history_Zayavki" FromRole="history" ToRole="Zayavki" />
+        </EntityType>
+        <EntityType Name="master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_master" FromRole="master" ToRole="Zayavki" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_status" FromRole="status" ToRole="Zayavki" />
+          <NavigationProperty Name="Zayavki1" Relationship="Self.FK_Zayavki_status1" FromRole="status" ToRole="Zayavki" />
+        </EntityType>
+        <EntityType Name="typeEquipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zayavki" Relationship="Self.FK_Zayavki_typeEquipment" FromRole="typeEquipment" ToRole="Zayavki" />
+        </EntityType>
+        <EntityType Name="Zayavki">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="client" Type="Int32" />
+          <Property Name="typeEquip" Type="Int32" />
+          <Property Name="dateOform" Type="DateTime" Precision="0" />
+          <Property Name="dateVip" Type="DateTime" Precision="0" />
+          <Property Name="model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="master" Type="Int32" />
+          <NavigationProperty Name="client1" Relationship="Self.FK_Zayavki_client" FromRole="Zayavki" ToRole="client" />
+          <NavigationProperty Name="history" Relationship="Self.FK_history_Zayavki" FromRole="Zayavki" ToRole="history" />
+          <NavigationProperty Name="master1" Relationship="Self.FK_Zayavki_master" FromRole="Zayavki" ToRole="master" />
+          <NavigationProperty Name="status1" Relationship="Self.FK_Zayavki_status" FromRole="Zayavki" ToRole="status" />
+          <NavigationProperty Name="status2" Relationship="Self.FK_Zayavki_status1" FromRole="Zayavki" ToRole="status" />
+          <NavigationProperty Name="typeEquipment" Relationship="Self.FK_Zayavki_typeEquipment" FromRole="Zayavki" ToRole="typeEquipment" />
+        </EntityType>
+        <Association Name="FK_Zayavki_client">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_history_Zayavki">
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="0..1" />
+          <End Role="history" Type="Self.history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zayavki">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="zayavka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_master">
+          <End Role="master" Type="Self.master" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="master" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_status">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_status1">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zayavki_typeEquipment">
+          <End Role="typeEquipment" Type="Self.typeEquipment" Multiplicity="0..1" />
+          <End Role="Zayavki" Type="Self.Zayavki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeEquipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zayavki">
+              <PropertyRef Name="typeEquip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zayavkiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="history" EntityType="Self.history" />
+          <EntitySet Name="master" EntityType="Self.master" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="typeEquipment" EntityType="Self.typeEquipment" />
+          <EntitySet Name="Zayavki" EntityType="Self.Zayavki" />
+          <AssociationSet Name="FK_Zayavki_client" Association="Self.FK_Zayavki_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_history_Zayavki" Association="Self.FK_history_Zayavki">
+            <End Role="Zayavki" EntitySet="Zayavki" />
+            <End Role="history" EntitySet="history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_master" Association="Self.FK_Zayavki_master">
+            <End Role="master" EntitySet="master" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_status" Association="Self.FK_Zayavki_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_status1" Association="Self.FK_Zayavki_status1">
+            <End Role="status" EntitySet="status" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zayavki_typeEquipment" Association="Self.FK_Zayavki_typeEquipment">
+            <End Role="typeEquipment" EntitySet="typeEquipment" />
+            <End Role="Zayavki" EntitySet="Zayavki" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище zayavkiModelContainer" CdmEntityContainer="zayavkiEntities">
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="zayavkiModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="history">
+            <EntityTypeMapping TypeName="zayavkiModel.history">
+              <MappingFragment StoreEntitySet="history">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dateSmen" ColumnName="dateSmen" />
+                <ScalarProperty Name="zayavka" ColumnName="zayavka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="master">
+            <EntityTypeMapping TypeName="zayavkiModel.master">
+              <MappingFragment StoreEntitySet="master">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="zayavkiModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typeEquipment">
+            <EntityTypeMapping TypeName="zayavkiModel.typeEquipment">
+              <MappingFragment StoreEntitySet="typeEquipment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zayavki">
+            <EntityTypeMapping TypeName="zayavkiModel.Zayavki">
+              <MappingFragment StoreEntitySet="Zayavki">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="client" ColumnName="client" />
+                <ScalarProperty Name="typeEquip" ColumnName="typeEquip" />
+                <ScalarProperty Name="dateOform" ColumnName="dateOform" />
+                <ScalarProperty Name="dateVip" ColumnName="dateVip" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="master" ColumnName="master" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
